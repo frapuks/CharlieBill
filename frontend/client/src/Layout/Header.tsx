@@ -11,7 +11,7 @@ const Header = () => {
 
   // Methods
   const handleClickIcon = (): void => {
-    navigate("/");
+    navigate("/dashboard");
   };
   const handleClickLogin = (): void => {
     navigate("/login");
