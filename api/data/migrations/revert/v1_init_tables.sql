@@ -1,0 +1,6 @@
+BEGIN;
+
+DROP TABLE "role", "user";
+DROP DOMAIN EMAIL, PWD;
+
+COMMIT;

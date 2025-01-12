@@ -1,0 +1,19 @@
+{
+  "type": "module",
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Server for react architecture",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --env-file=.env index.js"
+  },
+  "keywords": [
+    "architecture",
+    "template"
+  ],
+  "author": "Frapuks",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.3"
+  }
+}

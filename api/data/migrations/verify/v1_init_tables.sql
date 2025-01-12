@@ -1,0 +1,5 @@
+BEGIN;
+
+SELECT * FROM "user";
+
+ROLLBACK;
