@@ -30,7 +30,7 @@ const Header = () => {
           <Home />
         </IconButton>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Template
+          Charlie Bill
         </Typography>
         {accessToken ? (
           <>
