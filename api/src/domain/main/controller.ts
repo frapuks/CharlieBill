@@ -6,7 +6,7 @@ const logger = debug('Controller');
 const renderHomePage = (req: Request, res: Response) => {
   try {
     res.json({
-      message: 'Welcome to Template API',
+      message: 'Welcome to CharlieBill API',
     });
   } catch (err) {
     if (err instanceof Error) logger(err.message);

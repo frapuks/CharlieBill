@@ -1,4 +1,4 @@
-import { Typography, Container, Button } from "@mui/material";
+import { Typography, Container, Button, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
@@ -10,8 +10,12 @@ const Dashboard = () => {
   // UseEffect
 
   // Methods
-  const handleProduct = () => {
+  const handleProducts = () => {
     navigate("/products");
+  };
+
+  const handleClients = () => {
+    navigate("/clients");
   };
 
   return (
@@ -19,9 +23,14 @@ const Dashboard = () => {
       <Typography variant="h5" textAlign={"center"}>
         Dashboard
       </Typography>
-      <Button variant="contained" onClick={handleProduct}>
-        Produits
-      </Button>
+      <Stack direction='row' justifyContent='center' gap={5}>
+        <Button variant="contained" onClick={handleProducts}>
+          Produits
+        </Button>
+        <Button variant="contained" onClick={handleClients}>
+          Clients
+        </Button>
+      </Stack>
     </Container>
   );
 };

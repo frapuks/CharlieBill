@@ -9,6 +9,7 @@ const Footer = () => {
       sx={{ position: "sticky", top: "100%" }}
       paddingTop={10}
       paddingBottom={10}
+      marginTop={5}
     >
       <Stack alignItems="center" spacing={3}>
         <Stack direction="row">
@@ -25,7 +26,7 @@ const Footer = () => {
             <Mail fontSize="large" />
           </IconButton>
         </Stack>
-        <Typography variant="overline">Frapuks | 2024</Typography>
+        <Typography variant="overline">Frapuks | 2025</Typography>
       </Stack>
     </Box>
   );

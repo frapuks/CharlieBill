@@ -1,4 +1,4 @@
-import { Edit } from "@mui/icons-material";
+import { KeyboardArrowRight } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import {
   Typography,
@@ -13,9 +13,9 @@ import {
   IconButton,
   useTheme,
 } from "@mui/material";
-import { products } from "../Utils/ProductList";
+import { clients } from "../Utils/ClientList";
 
-const Products = () => {
+const Clients = () => {
   // Utils
   const navigate = useNavigate();
   const theme = useTheme();
@@ -25,35 +25,35 @@ const Products = () => {
   // UseEffect
 
   // Methods
-  const handleEdit = (id: number) => {
-    navigate(`/products/${id}`);
+  const handleClient = (id: number) => {
+    navigate(`/clients/${id}`);
   };
 
   return (
     <Container sx={{ padding: 0 }}>
       <Typography variant="h5" textAlign={"center"}>
-        Liste des produits
+        Liste des clients
       </Typography>
       <TableContainer component={Paper}>
         <Table>
           <TableHead sx={{ backgroundColor: theme.palette.primary.light }}>
             <TableRow>
-              <TableCell>Service</TableCell>
-              <TableCell align="center">Prix (€)</TableCell>
+              <TableCell>Nom</TableCell>
+              <TableCell align="center">Adresse (€)</TableCell>
               <TableCell align="right">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {products.map((service) => (
-              <TableRow key={service.id}>
-                <TableCell>{service.name}</TableCell>
-                <TableCell align="center">{service.price.toFixed(2)}</TableCell>
+            {clients.map((client) => (
+              <TableRow key={client.id}>
+                <TableCell>{client.name}</TableCell>
+                <TableCell align="center">{client.address}</TableCell>
                 <TableCell align="right">
                   <IconButton
                     color="primary"
-                    onClick={() => handleEdit(service.id)}
+                    onClick={() => handleClient(client.id)}
                   >
-                    <Edit />
+                    <KeyboardArrowRight />
                   </IconButton>
                 </TableCell>
               </TableRow>
@@ -65,4 +65,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default Clients;

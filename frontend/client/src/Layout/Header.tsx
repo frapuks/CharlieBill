@@ -11,7 +11,7 @@ const Header = () => {
 
   // Methods
   const handleClickIcon = (): void => {
-    navigate("/dashboard");
+    if (accessToken) navigate("/dashboard");
   };
   const handleClickLogin = (): void => {
     navigate("/login");
@@ -24,7 +24,7 @@ const Header = () => {
   };
 
   return (
-    <AppBar component="header" position="static">
+    <AppBar component="header" position="static" sx={{marginBottom: 5}}>
       <Toolbar>
         <IconButton edge="start" color="inherit" onClick={handleClickIcon}>
           <Home />

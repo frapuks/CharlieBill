@@ -12,12 +12,7 @@ import {
 import { Params, useParams } from "react-router-dom";
 import { products } from "../Utils/ProductList";
 import { useEffect, useState } from "react";
-
-type Product = {
-  id: number;
-  name: string;
-  price: number;
-};
+import type { Product } from "../Types";
 
 const Product = () => {
   // Utils

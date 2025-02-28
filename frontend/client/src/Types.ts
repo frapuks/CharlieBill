@@ -8,3 +8,15 @@ export type User = {
     refreshToken: string;
   };
 };
+
+export type Product = {
+  id: number;
+  name: string;
+  price: number;
+};
+
+export type Client = {
+  id: number;
+  name: string;
+  address: string;
+};
