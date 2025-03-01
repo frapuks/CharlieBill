@@ -1,32 +1,20 @@
-import { GitHub, LinkedIn, Mail } from "@mui/icons-material";
+import { Mail } from "@mui/icons-material";
 import { Box, IconButton, Stack, Typography } from "@mui/material";
 
 const Footer = () => {
   return (
     <Box
       component="footer"
-      bgcolor="primary.dark"
+      bgcolor="info.dark"
       sx={{ position: "sticky", top: "100%" }}
-      paddingTop={10}
-      paddingBottom={10}
+      padding={2}
       marginTop={5}
     >
-      <Stack alignItems="center" spacing={3}>
-        <Stack direction="row">
-          <IconButton href="https://github.com/frapuks" target="blank">
-            <GitHub fontSize="large" />
-          </IconButton>
-          <IconButton
-            href="https://www.linkedin.com/in/francois-grunert/"
-            target="blank"
-          >
-            <LinkedIn fontSize="large" />
-          </IconButton>
-          <IconButton href="mailto:francoisgrunert@gmail.com">
-            <Mail fontSize="large" />
-          </IconButton>
-        </Stack>
+      <Stack direction="row" justifyContent="center" alignItems="center">
         <Typography variant="overline">Frapuks | 2025</Typography>
+        <IconButton href="mailto:francoisgrunert@gmail.com">
+          <Mail fontSize="small" />
+        </IconButton>
       </Stack>
     </Box>
   );

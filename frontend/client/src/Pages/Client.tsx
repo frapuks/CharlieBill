@@ -21,6 +21,9 @@ import {
   TableRow,
   Paper,
   useTheme,
+  IconButton,
+  Breadcrumbs,
+  Link,
 } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
@@ -32,7 +35,8 @@ import { clients } from "../Utils/ClientList";
 import { useEffect, useState } from "react";
 import { products } from "../Utils/ProductList";
 import { prestations as prestationsList } from "../Utils/PrestationList";
-import type { Client } from "../Types";
+import type { Client, Prestation } from "../Types";
+import { AddCircleOutline, Delete, Edit } from "@mui/icons-material";
 
 const Client = () => {
   // Utils
@@ -107,27 +111,45 @@ const Client = () => {
     const productId = parseInt(form.get("productId") as string) || 0;
     const quantity = parseInt(form.get("quantity") as string) || 0;
     const product = products.find((product) => product.id === productId);
+    const price = product?.price || 0;
 
     const newPrestation = {
       id: Date.now(),
-      clientId: clientId,
+      clientId: parseInt(clientId as string),
       productId: productId,
-      date: form.get("date"),
-      name: product?.name,
+      date: form.get("date") as string,
+      name: product?.name || "",
       quantity: quantity,
-      unit_price: product?.price,
-      total: product?.price * form.get("quantity"),
+      unit_price: price,
+      total: price * quantity,
     };
 
     setPrestations([...prestations, newPrestation]);
     setOpenAddPrestation(false);
   };
 
+  const handleRemovePrestation = (id) => {
+    const newList = prestations.filter(prestation => prestation.id !== id)
+    setPrestations(newList)
+  }
+
   return (
     <Container sx={{ padding: 0 }}>
-      <Typography variant="h5" textAlign={"center"}>
-        {client.name}
-      </Typography>
+      <Breadcrumbs>
+        <Link underline="hover" color="inherit" href="/dashboard">
+          Accueil
+        </Link>
+        <Link underline="hover" color="inherit" href="/clients">
+          Clients
+        </Link>
+        <Typography sx={{ color: "text.primary" }}>{client.name}</Typography>
+      </Breadcrumbs>
+      <Stack direction="row" justifyContent="center" alignItems="center">
+        <Typography variant="h5">{client.name}</Typography>
+        <IconButton color="primary" onClick={() => setOpenEdit(true)}>
+          <Edit />
+        </IconButton>
+      </Stack>
       <Stack spacing={2}>
         <Stack direction="row" spacing={2}>
           <Typography>Nom : </Typography>
@@ -137,13 +159,6 @@ const Client = () => {
           <Typography>Adresse : </Typography>
           <Typography>{client.address}</Typography>
         </Stack>
-        <Button
-          variant="outlined"
-          sx={{ alignSelf: "center" }}
-          onClick={() => setOpenEdit(true)}
-        >
-          Modifier
-        </Button>
       </Stack>
       <Drawer open={openEdit} onClose={() => setOpenEdit(false)} anchor="right">
         <Box
@@ -187,17 +202,12 @@ const Client = () => {
 
       <Divider sx={{ margin: 5 }} />
 
-      <Typography variant="h5" textAlign={"center"}>
-        Prestations
-      </Typography>
-
-      <Button
-        variant="outlined"
-        sx={{ alignSelf: "center" }}
-        onClick={() => setOpenAddPrestation(true)}
-      >
-        Ajouter une prestation à ce client
-      </Button>
+      <Stack direction="row" justifyContent="center" alignItems="center">
+        <Typography variant="h5">Prestations</Typography>
+        <IconButton color="primary" onClick={() => setOpenAddPrestation(true)}>
+          <AddCircleOutline />
+        </IconButton>
+      </Stack>
       <Drawer
         open={openAddPrestation}
         onClose={() => setOpenAddPrestation(false)}
@@ -263,20 +273,33 @@ const Client = () => {
           <TableHead sx={{ backgroundColor: theme.palette.primary.light }}>
             <TableRow>
               <TableCell>Produit</TableCell>
-              <TableCell>Date</TableCell>
-              <TableCell>Quantité</TableCell>
-              <TableCell>Prix Unitaire (€)</TableCell>
-              <TableCell>Total (€)</TableCell>
+              <TableCell align="center">Date</TableCell>
+              <TableCell align="center">Quantité</TableCell>
+              <TableCell align="center">Prix Unitaire (€)</TableCell>
+              <TableCell align="center">Total (€)</TableCell>
+              <TableCell align="right">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {prestations.map((prestation) => (
               <TableRow key={prestation.id}>
                 <TableCell>{prestation.name}</TableCell>
-                <TableCell>{prestation.date}</TableCell>
-                <TableCell>{prestation.quantity}</TableCell>
-                <TableCell>{prestation.unit_price.toFixed(2)}</TableCell>
-                <TableCell>{prestation.total.toFixed(2)}</TableCell>
+                <TableCell align="center">{prestation.date}</TableCell>
+                <TableCell align="center">{prestation.quantity}</TableCell>
+                <TableCell align="center">
+                  {prestation.unit_price.toFixed(2)}
+                </TableCell>
+                <TableCell align="center">
+                  {prestation.total.toFixed(2)}
+                </TableCell>
+                <TableCell align="right">
+                  <IconButton
+                    color="primary"
+                    onClick={() => handleRemovePrestation(prestation.id)}
+                  >
+                    <Delete />
+                  </IconButton>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

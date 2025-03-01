@@ -35,7 +35,7 @@ const Header = () => {
         {accessToken ? (
           <>
             <Button color="inherit" onClick={handleClickDashboard}>
-              Dashboard
+              Accueil
             </Button>
             <IconButton color="inherit" onClick={handleClickAccount}>
               <AccountCircle />

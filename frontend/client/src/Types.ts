@@ -20,3 +20,14 @@ export type Client = {
   name: string;
   address: string;
 };
+
+export type Prestation = {
+  id: number;
+  clientId: number;
+  productId: number;
+  date: string;
+  name: string;
+  quantity: number;
+  unit_price: number;
+  total: number;
+};

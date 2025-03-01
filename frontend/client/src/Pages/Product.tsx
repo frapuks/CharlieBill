@@ -8,11 +8,15 @@ import {
   Drawer,
   TextField,
   Divider,
+  IconButton,
+  Breadcrumbs,
+  Link,
 } from "@mui/material";
 import { Params, useParams } from "react-router-dom";
 import { products } from "../Utils/ProductList";
 import { useEffect, useState } from "react";
 import type { Product } from "../Types";
+import { Edit } from "@mui/icons-material";
 
 const Product = () => {
   // Utils
@@ -62,7 +66,7 @@ const Product = () => {
     const newProduct = {
       id: product.id,
       name: form.get("name") as string,
-      price: parseInt(form.get("price") as string),
+      price: parseFloat(form.get("price") as string),
     };
     setProduct(newProduct);
     console.log("Produit mis à jour :", newProduct);
@@ -71,9 +75,17 @@ const Product = () => {
 
   return (
     <Container sx={{ padding: 0 }}>
-      <Typography variant="h5" textAlign={"center"}>
-        {product.name}
-      </Typography>
+      <Breadcrumbs>
+        <Link underline="hover" color="inherit" href='/dashboard'>Accueil</Link>
+        <Link underline="hover" color="inherit" href='/products'>Produits</Link>
+        <Typography sx={{ color: 'text.primary' }}>{product.name}</Typography>
+      </Breadcrumbs>
+      <Stack direction="row" justifyContent="center" alignItems="center">
+        <Typography variant="h5">{product.name}</Typography>
+        <IconButton color="primary" onClick={() => setOpenDrawer(true)}>
+          <Edit />
+        </IconButton>
+      </Stack>
       <Stack spacing={2}>
         <Stack direction="row" spacing={2}>
           <Typography>Nom : </Typography>
@@ -83,13 +95,6 @@ const Product = () => {
           <Typography>Prix : </Typography>
           <Typography>{product.price.toFixed(2) + " €"}</Typography>
         </Stack>
-        <Button
-          variant="outlined"
-          sx={{ alignSelf: "center" }}
-          onClick={() => setOpenDrawer(true)}
-        >
-          Modifier
-        </Button>
       </Stack>
       <Drawer
         open={openDrawer}
@@ -122,6 +127,10 @@ const Product = () => {
             name="price"
             type="number"
             defaultValue={product.price}
+            inputProps={{
+              inputMode: "decimal",
+              step: 0.01,
+            }}
             required
           />
           <Stack direction="row" gap={2}>

@@ -21,7 +21,7 @@ const Dashboard = () => {
   return (
     <Container sx={{ padding: 0 }}>
       <Typography variant="h5" textAlign={"center"}>
-        Dashboard
+        Accueil
       </Typography>
       <Stack direction='row' justifyContent='center' gap={5}>
         <Button variant="contained" onClick={handleProducts}>
