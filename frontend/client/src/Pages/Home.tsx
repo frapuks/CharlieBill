@@ -20,7 +20,7 @@ const Dashboard = () => {
 
   return (
     <Container sx={{ padding: 0 }}>
-      <Typography variant="h5" textAlign={"center"}>
+      <Typography variant="h3" textAlign={"center"}>
         Accueil
       </Typography>
       <Stack direction='row' justifyContent='center' gap={5}>

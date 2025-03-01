@@ -69,19 +69,18 @@ const Product = () => {
       price: parseFloat(form.get("price") as string),
     };
     setProduct(newProduct);
-    console.log("Produit mis à jour :", newProduct);
     setOpenDrawer(false);
   };
 
   return (
     <Container sx={{ padding: 0 }}>
       <Breadcrumbs>
-        <Link underline="hover" color="inherit" href='/dashboard'>Accueil</Link>
+        <Link underline="hover" color="inherit" href='/home'>Accueil</Link>
         <Link underline="hover" color="inherit" href='/products'>Produits</Link>
         <Typography sx={{ color: 'text.primary' }}>{product.name}</Typography>
       </Breadcrumbs>
       <Stack direction="row" justifyContent="center" alignItems="center">
-        <Typography variant="h5">{product.name}</Typography>
+        <Typography variant="h3">{product.name}</Typography>
         <IconButton color="primary" onClick={() => setOpenDrawer(true)}>
           <Edit />
         </IconButton>
@@ -109,7 +108,7 @@ const Product = () => {
             display: "flex",
             flexDirection: "column",
             gap: 2,
-            margin: "2em 4em",
+            margin: "2em 2em",
           }}
         >
           <Typography variant="h5" textAlign="center">

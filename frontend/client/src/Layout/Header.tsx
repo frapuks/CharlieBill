@@ -11,20 +11,20 @@ const Header = () => {
 
   // Methods
   const handleClickIcon = (): void => {
-    if (accessToken) navigate("/dashboard");
+    if (accessToken) navigate("/home");
   };
   const handleClickLogin = (): void => {
     navigate("/login");
   };
   const handleClickDashboard = (): void => {
-    navigate("/dashboard");
+    navigate("/home");
   };
   const handleClickAccount = (): void => {
     navigate("/account");
   };
 
   return (
-    <AppBar component="header" position="static" sx={{marginBottom: 5}}>
+    <AppBar component="header" position="static" sx={{marginBottom: 1}}>
       <Toolbar>
         <IconButton edge="start" color="inherit" onClick={handleClickIcon}>
           <Home />

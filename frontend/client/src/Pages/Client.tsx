@@ -35,7 +35,7 @@ import { clients } from "../Utils/ClientList";
 import { useEffect, useState } from "react";
 import { products } from "../Utils/ProductList";
 import { prestations as prestationsList } from "../Utils/PrestationList";
-import type { Client, Prestation } from "../Types";
+import type { Client } from "../Types";
 import { AddCircleOutline, Delete, Edit } from "@mui/icons-material";
 
 const Client = () => {
@@ -97,7 +97,6 @@ const Client = () => {
       address: form.get("address") as string,
     };
     setClient(newClient);
-    console.log("Client mis à jour :", newClient);
     setOpenEdit(false);
   };
 
@@ -128,15 +127,15 @@ const Client = () => {
     setOpenAddPrestation(false);
   };
 
-  const handleRemovePrestation = (id) => {
-    const newList = prestations.filter(prestation => prestation.id !== id)
-    setPrestations(newList)
-  }
+  const handleRemovePrestation = (id: number) => {
+    const newList = prestations.filter((prestation) => prestation.id !== id);
+    setPrestations(newList);
+  };
 
   return (
     <Container sx={{ padding: 0 }}>
       <Breadcrumbs>
-        <Link underline="hover" color="inherit" href="/dashboard">
+        <Link underline="hover" color="inherit" href="/home">
           Accueil
         </Link>
         <Link underline="hover" color="inherit" href="/clients">
@@ -145,7 +144,7 @@ const Client = () => {
         <Typography sx={{ color: "text.primary" }}>{client.name}</Typography>
       </Breadcrumbs>
       <Stack direction="row" justifyContent="center" alignItems="center">
-        <Typography variant="h5">{client.name}</Typography>
+        <Typography variant="h3">{client.name}</Typography>
         <IconButton color="primary" onClick={() => setOpenEdit(true)}>
           <Edit />
         </IconButton>
@@ -169,8 +168,7 @@ const Client = () => {
             display: "flex",
             flexDirection: "column",
             gap: 2,
-            margin: "2em 4em",
-            width: 500,
+            margin: "2em 2em",
           }}
         >
           <Typography variant="h5" textAlign="center">
@@ -203,7 +201,7 @@ const Client = () => {
       <Divider sx={{ margin: 5 }} />
 
       <Stack direction="row" justifyContent="center" alignItems="center">
-        <Typography variant="h5">Prestations</Typography>
+        <Typography variant="h4">Prestations</Typography>
         <IconButton color="primary" onClick={() => setOpenAddPrestation(true)}>
           <AddCircleOutline />
         </IconButton>
@@ -221,8 +219,7 @@ const Client = () => {
             display: "flex",
             flexDirection: "column",
             gap: 2,
-            margin: "2em 4em",
-            width: 500,
+            margin: "2em 2em",
           }}
         >
           <Typography variant="h5" textAlign="center">

@@ -1,7 +1,7 @@
 import { Route } from "react-router-dom";
 import {
   Account,
-  Dashboard,
+  Home,
   Login,
   Products,
   Product,
@@ -13,7 +13,7 @@ const Router = [
   { id: 1, mainPath: "*", mainElement: <Login /> },
   { id: 2, mainPath: "/", mainElement: <Login /> },
   { id: 3, mainPath: "/login", mainElement: <Login /> },
-  { id: 4, mainPath: "/dashboard", mainElement: <Dashboard /> },
+  { id: 4, mainPath: "/home", mainElement: <Home /> },
   { id: 5, mainPath: "/account", mainElement: <Account /> },
   { id: 6, mainPath: "/products", mainElement: <Products /> },
   { id: 7, mainPath: "/products/:productId", mainElement: <Product /> },

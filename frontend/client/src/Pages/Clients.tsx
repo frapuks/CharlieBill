@@ -57,11 +57,11 @@ const Clients = () => {
   return (
     <Container sx={{ padding: 0 }}>
       <Breadcrumbs>
-        <Link underline="hover" color="inherit" href='/dashboard'>Accueil</Link>
+        <Link underline="hover" color="inherit" href='/home'>Accueil</Link>
         <Typography sx={{ color: 'text.primary' }}>Clients</Typography>
       </Breadcrumbs>
       <Stack direction="row" justifyContent="center" alignItems="center">
-        <Typography variant="h5">Liste des clients</Typography>
+        <Typography variant="h3">Liste des clients</Typography>
         <IconButton color="primary" onClick={() => setOpenAdd(true)}>
           <AddCircleOutline />
         </IconButton>
@@ -75,8 +75,7 @@ const Clients = () => {
             display: "flex",
             flexDirection: "column",
             gap: 2,
-            margin: "2em 4em",
-            width: 500,
+            margin: "2em 2em",
           }}
         >
           <Typography variant="h5" textAlign="center">
