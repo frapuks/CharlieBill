@@ -28,7 +28,7 @@ const Clients = () => {
   // Utils
   const navigate = useNavigate();
   const theme = useTheme();
-  
+
   // Variables
   const [clients, setClients] = useState(clientsList);
   const [openAdd, setOpenAdd] = useState(false);
@@ -57,8 +57,10 @@ const Clients = () => {
   return (
     <Container sx={{ padding: 0 }}>
       <Breadcrumbs>
-        <Link underline="hover" color="inherit" href='/home'>Accueil</Link>
-        <Typography sx={{ color: 'text.primary' }}>Clients</Typography>
+        <Link underline="hover" color="inherit" href="/home">
+          Accueil
+        </Link>
+        <Typography sx={{ color: "text.primary" }}>Clients</Typography>
       </Breadcrumbs>
       <Stack direction="row" justifyContent="center" alignItems="center">
         <Typography variant="h3">Liste des clients</Typography>
@@ -87,7 +89,7 @@ const Clients = () => {
           <TextField label="Adresse" name="address" required />
 
           <Stack direction="row" gap={2}>
-            <Button variant="contained" color="error" type="reset">
+            <Button variant="outlined" color="secondary" type="reset">
               Annuler
             </Button>
             <Button variant="contained" color="primary" type="submit">

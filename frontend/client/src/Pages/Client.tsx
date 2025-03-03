@@ -30,17 +30,19 @@ import dayjs from "dayjs";
 import "dayjs/locale/fr";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { Params, useParams } from "react-router-dom";
+import { Params, useNavigate, useParams } from "react-router-dom";
 import { clients } from "../Utils/ClientList";
 import { useEffect, useState } from "react";
 import { products } from "../Utils/ProductList";
 import { prestations as prestationsList } from "../Utils/PrestationList";
 import type { Client } from "../Types";
 import { AddCircleOutline, Delete, Edit } from "@mui/icons-material";
+import { DeleteDialog } from "../Components";
 
 const Client = () => {
   // Utils
   const theme = useTheme();
+  const navigate = useNavigate();
   const { clientId } = useParams<Params>();
 
   // Variables
@@ -48,9 +50,15 @@ const Client = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const [openEdit, setOpenEdit] = useState(false);
+  const [openDeleteClient, setOpenDeleteClient] = useState(false);
   const [openAddPrestation, setOpenAddPrestation] = useState(false);
   const [product, setProduct] = useState("");
   const [prestations, setPrestations] = useState(prestationsList);
+  const [prestationIdToDelete, setPrestationIdToDelete] = useState(0);
+  const [
+    openDialogConfirmDeletePrestation,
+    setOpenDialogConfirmDeletePrestation,
+  ] = useState(false);
 
   // UseEffect
   useEffect(() => {
@@ -128,8 +136,19 @@ const Client = () => {
   };
 
   const handleRemovePrestation = (id: number) => {
+    setPrestationIdToDelete(id);
+    setOpenDialogConfirmDeletePrestation(true);
+  };
+
+  const handleConfirmRemovePrestation = (id: number) => {
     const newList = prestations.filter((prestation) => prestation.id !== id);
     setPrestations(newList);
+    setOpenDialogConfirmDeletePrestation(false);
+  };
+
+  const handleConfirmDeleteClient = () => {
+    setOpenDeleteClient(false);
+    navigate("/clients");
   };
 
   return (
@@ -188,14 +207,29 @@ const Client = () => {
             required
           />
           <Stack direction="row" gap={2}>
-            <Button variant="contained" color="error" type="reset">
+            <Button variant="outlined" color="secondary" type="reset">
               Annuler
             </Button>
             <Button variant="contained" color="primary" type="submit">
               Sauvegarder
             </Button>
           </Stack>
+          <Divider />
+          <Button
+            variant="contained"
+            color="error"
+            startIcon={<Delete />}
+            size="small"
+            onClick={() => setOpenDeleteClient(true)}
+          >
+            Supprimer le client
+          </Button>
         </Box>
+        <DeleteDialog
+          open={openDeleteClient}
+          handleClose={() => setOpenDeleteClient(false)}
+          handleConfirm={handleConfirmDeleteClient}
+        />
       </Drawer>
 
       <Divider sx={{ margin: 5 }} />
@@ -256,7 +290,7 @@ const Client = () => {
           />
 
           <Stack direction="row" gap={2}>
-            <Button variant="contained" color="error" type="reset">
+            <Button variant="outlined" color="secondary" type="reset">
               Annuler
             </Button>
             <Button variant="contained" color="primary" type="submit">
@@ -302,6 +336,13 @@ const Client = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <DeleteDialog
+        open={openDialogConfirmDeletePrestation}
+        handleClose={() => setOpenDialogConfirmDeletePrestation(false)}
+        handleConfirm={() =>
+          handleConfirmRemovePrestation(prestationIdToDelete)
+        }
+      />
     </Container>
   );
 };

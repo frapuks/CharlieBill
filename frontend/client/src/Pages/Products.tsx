@@ -83,7 +83,7 @@ const Products = () => {
           }}
         >
           <Typography variant="h5" textAlign="center">
-            Ajouter un client
+            Ajouter un produit
           </Typography>
           <Divider />
 
@@ -100,7 +100,7 @@ const Products = () => {
           />
 
           <Stack direction="row" gap={2}>
-            <Button variant="contained" color="error" type="reset">
+            <Button variant="outlined" color="secondary" type="reset">
               Annuler
             </Button>
             <Button variant="contained" color="primary" type="submit">

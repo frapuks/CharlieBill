@@ -12,14 +12,16 @@ import {
   Breadcrumbs,
   Link,
 } from "@mui/material";
-import { Params, useParams } from "react-router-dom";
+import { Params, useNavigate, useParams } from "react-router-dom";
 import { products } from "../Utils/ProductList";
 import { useEffect, useState } from "react";
 import type { Product } from "../Types";
-import { Edit } from "@mui/icons-material";
+import { Delete, Edit } from "@mui/icons-material";
+import { DeleteDialog } from "../Components";
 
 const Product = () => {
   // Utils
+  const navigate = useNavigate();
   const { productId } = useParams<Params>();
 
   // Variables
@@ -27,6 +29,7 @@ const Product = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
 
   // UseEffect
   useEffect(() => {
@@ -72,12 +75,21 @@ const Product = () => {
     setOpenDrawer(false);
   };
 
+  const handleConfirmDelete = () => {
+    setOpenDelete(false);
+    navigate("/products");
+  };
+
   return (
     <Container sx={{ padding: 0 }}>
       <Breadcrumbs>
-        <Link underline="hover" color="inherit" href='/home'>Accueil</Link>
-        <Link underline="hover" color="inherit" href='/products'>Produits</Link>
-        <Typography sx={{ color: 'text.primary' }}>{product.name}</Typography>
+        <Link underline="hover" color="inherit" href="/home">
+          Accueil
+        </Link>
+        <Link underline="hover" color="inherit" href="/products">
+          Produits
+        </Link>
+        <Typography sx={{ color: "text.primary" }}>{product.name}</Typography>
       </Breadcrumbs>
       <Stack direction="row" justifyContent="center" alignItems="center">
         <Typography variant="h3">{product.name}</Typography>
@@ -133,14 +145,29 @@ const Product = () => {
             required
           />
           <Stack direction="row" gap={2}>
-            <Button variant="contained" color="error" type="reset">
+            <Button variant="outlined" color="secondary" type="reset">
               Annuler
             </Button>
             <Button variant="contained" color="primary" type="submit">
               Sauvegarder
             </Button>
           </Stack>
+          <Divider />
+          <Button
+            variant="contained"
+            color="error"
+            startIcon={<Delete />}
+            size="small"
+            onClick={() => setOpenDelete(true)}
+          >
+            Supprimer le produit
+          </Button>
         </Box>
+        <DeleteDialog
+          open={openDelete}
+          handleClose={() => setOpenDelete(false)}
+          handleConfirm={handleConfirmDelete}
+        />
       </Drawer>
     </Container>
   );
