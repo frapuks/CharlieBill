@@ -21,19 +21,28 @@ import {
   Breadcrumbs,
   Link,
 } from "@mui/material";
-import { clients as clientsList } from "../Utils/ClientList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Client } from "../Types";
 
 const Clients = () => {
   // Utils
   const navigate = useNavigate();
   const theme = useTheme();
+  const urlApi: string = import.meta.env.VITE_API_ROOT;
 
   // Variables
-  const [clients, setClients] = useState(clientsList);
+  const [clients, setClients] = useState<Client[]>([]);
   const [openAdd, setOpenAdd] = useState(false);
 
   // UseEffect
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`${urlApi}/clients`);
+      const data = await response.json();
+      setClients(data);
+    };
+    fetchData();
+  }, []);
 
   // Methods
   const handleClient = (id: number) => {

@@ -35,7 +35,7 @@ import { clients } from "../Utils/ClientList";
 import { useEffect, useState } from "react";
 import { products } from "../Utils/ProductList";
 import { prestations as prestationsList } from "../Utils/PrestationList";
-import type { Client } from "../Types";
+import type { Client as ClientType } from "../Types";
 import { AddCircleOutline, Delete, Edit } from "@mui/icons-material";
 import { DeleteDialog } from "../Components";
 
@@ -46,7 +46,7 @@ const Client = () => {
   const { clientId } = useParams<Params>();
 
   // Variables
-  const [client, setClient] = useState<Client | null>(null);
+  const [client, setClient] = useState<ClientType | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const [openEdit, setOpenEdit] = useState(false);

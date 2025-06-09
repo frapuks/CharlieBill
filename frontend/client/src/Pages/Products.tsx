@@ -19,21 +19,30 @@ import {
   Button,
   TextField,
   Breadcrumbs,
-  Link
+  Link,
 } from "@mui/material";
-import { products as productsList } from "../Utils/ProductList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Product } from "../Types";
 
 const Products = () => {
   // Utils
   const navigate = useNavigate();
   const theme = useTheme();
+  const urlApi: string = import.meta.env.VITE_API_ROOT;
 
   // Variables
-  const [products, setProducts] = useState(productsList);
+  const [products, setProducts] = useState<Product[]>([]);
   const [openAdd, setOpenAdd] = useState(false);
 
   // UseEffect
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`${urlApi}/products`);
+      const data = await response.json();
+      setProducts(data);
+    };
+    fetchData();
+  }, []);
 
   // Methods
   const handleProduct = (id: number) => {
@@ -57,8 +66,10 @@ const Products = () => {
   return (
     <Container sx={{ padding: 0 }}>
       <Breadcrumbs>
-        <Link underline="hover" color="inherit" href='/home'>Accueil</Link>
-        <Typography sx={{ color: 'text.primary' }}>Produits</Typography>
+        <Link underline="hover" color="inherit" href="/home">
+          Accueil
+        </Link>
+        <Typography sx={{ color: "text.primary" }}>Produits</Typography>
       </Breadcrumbs>
       <Stack direction="row" justifyContent="center" alignItems="center">
         <Typography variant="h3">Liste des produits</Typography>
@@ -66,11 +77,7 @@ const Products = () => {
           <AddCircleOutline />
         </IconButton>
       </Stack>
-      <Drawer
-        open={openAdd}
-        onClose={() => setOpenAdd(false)}
-        anchor="right"
-      >
+      <Drawer open={openAdd} onClose={() => setOpenAdd(false)} anchor="right">
         <Box
           component="form"
           onSubmit={handleSubmit}
@@ -122,7 +129,7 @@ const Products = () => {
             {products.map((service) => (
               <TableRow key={service.id}>
                 <TableCell>{service.name}</TableCell>
-                <TableCell align="center">{service.price.toFixed(2)}</TableCell>
+                <TableCell align="center">{service.price}</TableCell>
                 <TableCell align="right">
                   <IconButton
                     color="primary"

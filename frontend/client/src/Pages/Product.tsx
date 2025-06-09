@@ -15,7 +15,7 @@ import {
 import { Params, useNavigate, useParams } from "react-router-dom";
 import { products } from "../Utils/ProductList";
 import { useEffect, useState } from "react";
-import type { Product } from "../Types";
+import type { Product as ProductType } from "../Types";
 import { Delete, Edit } from "@mui/icons-material";
 import { DeleteDialog } from "../Components";
 
@@ -25,7 +25,7 @@ const Product = () => {
   const { productId } = useParams<Params>();
 
   // Variables
-  const [product, setProduct] = useState<Product | null>(null);
+  const [product, setProduct] = useState<ProductType | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const [openDrawer, setOpenDrawer] = useState(false);
