@@ -113,12 +113,13 @@ const Client = () => {
     const quantity = parseInt(form.get("quantity") as string) || 0;
     const product = products.find((product) => product.id === productId);
     const price = product?.price || 0;
+    const date = form.get("date") as string;
 
     const newPrestation = {
       id: Date.now(),
       clientId: parseInt(clientId as string),
       productId: productId,
-      date: form.get("date") as string,
+      date: new Date(date).toISOString(),
       name: product?.name || "",
       quantity: quantity,
       unit_price: price,
@@ -309,7 +310,9 @@ const Client = () => {
             {prestations.map((prestation) => (
               <TableRow key={prestation.id}>
                 <TableCell>{prestation.name}</TableCell>
-                <TableCell align="center">{prestation.date}</TableCell>
+                <TableCell align="center">
+                  {new Date(prestation.date).toLocaleDateString("fr-FR")}
+                </TableCell>
                 <TableCell align="center">{prestation.quantity}</TableCell>
                 <TableCell align="center">
                   {prestation.unit_price.toFixed(2)}
