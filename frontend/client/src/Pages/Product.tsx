@@ -4,7 +4,6 @@ import {
   Button,
   Stack,
   Box,
-  CircularProgress,
   Drawer,
   TextField,
   Divider,
@@ -17,7 +16,7 @@ import { products } from "../Utils/ProductList";
 import { useEffect, useState } from "react";
 import type { Product as ProductType } from "../Types";
 import { Delete, Edit } from "@mui/icons-material";
-import { DeleteDialog } from "../Components";
+import { DeleteDialog, Loader } from "../Components";
 
 const Product = () => {
   // Utils
@@ -46,12 +45,7 @@ const Product = () => {
   }, []);
 
   if (loading) {
-    return (
-      <Box sx={{ textAlign: "center", mt: 4 }}>
-        <CircularProgress />
-        <Typography>Chargement...</Typography>
-      </Box>
-    );
+    return <Loader />;
   }
 
   if (error) {

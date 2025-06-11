@@ -4,7 +4,6 @@ import {
   Button,
   Stack,
   Box,
-  CircularProgress,
   Drawer,
   TextField,
   Divider,
@@ -37,7 +36,7 @@ import { products } from "../Utils/ProductList";
 import { prestations as prestationsList } from "../Utils/PrestationList";
 import type { Client as ClientType } from "../Types";
 import { AddCircleOutline, Delete, Edit } from "@mui/icons-material";
-import { DeleteDialog } from "../Components";
+import { DeleteDialog, Loader } from "../Components";
 
 const Client = () => {
   // Utils
@@ -79,12 +78,7 @@ const Client = () => {
   }, []);
 
   if (loading) {
-    return (
-      <Box sx={{ textAlign: "center", mt: 4 }}>
-        <CircularProgress />
-        <Typography>Chargement...</Typography>
-      </Box>
-    );
+    return <Loader />;
   }
 
   if (error) {

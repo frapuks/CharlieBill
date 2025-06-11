@@ -52,7 +52,7 @@ const Login = () => {
       role: data.role,
     };
     localStorage.setItem("user", JSON.stringify(user));
-    navigate("/dashboard");
+    navigate("/home");
   };
 
   return (

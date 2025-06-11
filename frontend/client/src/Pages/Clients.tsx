@@ -23,6 +23,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Client } from "../Types";
+import { Loader } from "../Components";
 
 const Clients = () => {
   // Utils
@@ -33,13 +34,16 @@ const Clients = () => {
   // Variables
   const [clients, setClients] = useState<Client[]>([]);
   const [openAdd, setOpenAdd] = useState(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   // UseEffect
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const response = await fetch(`${urlApi}/clients`);
       const data = await response.json();
       setClients(data);
+      setLoading(false);
     };
     fetchData();
   }, []);
@@ -107,33 +111,38 @@ const Clients = () => {
           </Stack>
         </Box>
       </Drawer>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead sx={{ backgroundColor: theme.palette.primary.light }}>
-            <TableRow>
-              <TableCell>Nom</TableCell>
-              <TableCell align="center">Adresse (€)</TableCell>
-              <TableCell align="right">Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {clients.map((client) => (
-              <TableRow key={client.id}>
-                <TableCell>{client.name}</TableCell>
-                <TableCell align="center">{client.address}</TableCell>
-                <TableCell align="right">
-                  <IconButton
-                    color="primary"
-                    onClick={() => handleClient(client.id)}
-                  >
-                    <KeyboardArrowRight />
-                  </IconButton>
-                </TableCell>
+      
+      {loading ? (
+        <Loader />
+      ) : (
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead sx={{ backgroundColor: theme.palette.primary.light }}>
+              <TableRow>
+                <TableCell>Nom</TableCell>
+                <TableCell align="center">Adresse (€)</TableCell>
+                <TableCell align="right">Actions</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {clients.map((client) => (
+                <TableRow key={client.id}>
+                  <TableCell>{client.name}</TableCell>
+                  <TableCell align="center">{client.address}</TableCell>
+                  <TableCell align="right">
+                    <IconButton
+                      color="primary"
+                      onClick={() => handleClient(client.id)}
+                    >
+                      <KeyboardArrowRight />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
     </Container>
   );
 };

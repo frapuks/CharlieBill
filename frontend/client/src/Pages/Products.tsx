@@ -23,6 +23,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Product } from "../Types";
+import { Loader } from "../Components";
 
 const Products = () => {
   // Utils
@@ -33,13 +34,16 @@ const Products = () => {
   // Variables
   const [products, setProducts] = useState<Product[]>([]);
   const [openAdd, setOpenAdd] = useState(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   // UseEffect
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const response = await fetch(`${urlApi}/products`);
       const data = await response.json();
       setProducts(data);
+      setLoading(false);
     };
     fetchData();
   }, []);
@@ -116,33 +120,38 @@ const Products = () => {
           </Stack>
         </Box>
       </Drawer>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead sx={{ backgroundColor: theme.palette.primary.light }}>
-            <TableRow>
-              <TableCell>Service</TableCell>
-              <TableCell align="center">Prix (€)</TableCell>
-              <TableCell align="right">Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {products.map((service) => (
-              <TableRow key={service.id}>
-                <TableCell>{service.name}</TableCell>
-                <TableCell align="center">{service.price}</TableCell>
-                <TableCell align="right">
-                  <IconButton
-                    color="primary"
-                    onClick={() => handleProduct(service.id)}
-                  >
-                    <KeyboardArrowRight />
-                  </IconButton>
-                </TableCell>
+
+      {loading ? (
+        <Loader />
+      ) : (
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead sx={{ backgroundColor: theme.palette.primary.light }}>
+              <TableRow>
+                <TableCell>Service</TableCell>
+                <TableCell align="center">Prix (€)</TableCell>
+                <TableCell align="right">Actions</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {products.map((service) => (
+                <TableRow key={service.id}>
+                  <TableCell>{service.name}</TableCell>
+                  <TableCell align="center">{service.price}</TableCell>
+                  <TableCell align="right">
+                    <IconButton
+                      color="primary"
+                      onClick={() => handleProduct(service.id)}
+                    >
+                      <KeyboardArrowRight />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
     </Container>
   );
 };
